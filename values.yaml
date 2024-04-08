@@ -1,0 +1,35 @@
+controller: 
+  config: 
+    log-format-upstream: 'ip=$remote_addr url=$host uri=$request $status xtr=$http_x_trid request_time=$request_time usr_agent=$http_user_agent server_name=$server_name  upstream_name=$proxy_upstream_name upstream_address=$upstream_addr upstream_status=$upstream_status  upstream_resp_time=$upstream_response_time'
+    use-proxy-protocol: "true"
+    real-ip-header: "proxy_protocol"
+    use-forwarded-headers: "false"
+    set-real-ip-from: "0.0.0.0/0" 
+    enable-brotli: "true"    
+    use-gzip: "true"
+    brotli-level: "6"
+    brotli-types: "text/xml image/svg+xml application/x-font-ttf image/vnd.microsoft.icon application/x-font-opentype application/json font/eot application/vnd.ms-fontobject application/javascript font/otf application/xml application/xhtml+xml text/javascript application/x-javascript text/plain application/x-font-truetype application/xml+rss image/x-icon font/opentype text/css image/x-win-bitmap"
+    gzip-types: "text/xml image/svg+xml application/x-font-ttf image/vnd.microsoft.icon application/x-font-opentype application/json font/eot application/vnd.ms-fontobject application/javascript font/otf application/xml application/xhtml+xml text/javascript application/x-javascript text/plain application/x-font-truetype application/xml+rss image/x-icon font/opentype text/css image/x-win-bitmap"
+    proxy-body-size: "300m"
+    ignore-invalid-headers: "false"
+  service:
+    externalTrafficPolicy: "Cluster"
+    targetPorts:
+       https: https
+       http: http
+    # https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.3/guide/service/annotations/#load-balancer-attributes
+    annotations:
+      # service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "${SSL_CERT}"
+      service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "tcp"
+      # service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+      # service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"
+      service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+      service.beta.kubernetes.io/aws-load-balancer-type: "nlb-ip"
+      service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+      service.beta.kubernetes.io/aws-load-balancer-attributes: "load_balancing.cross_zone.enabled=true"
+      service.beta.kubernetes.io/aws-load-balancer-target-group-attributes: "preserve_client_ip.enabled=true, proxy_protocol_v2.enabled=true"
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 5
+    targetMemoryUtilizationPercentage: 70
