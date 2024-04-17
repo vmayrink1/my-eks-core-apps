@@ -79,6 +79,10 @@ resource "helm_release" "aws_load_balancer_controller" {
     value = 70
   }
   set {
+    name  = "autoscaling.targetMemoryUtilizationPercentage"
+    value = 70
+  }
+  set {
     name  = "serviceAccount.create"
     value = "false"
   }
