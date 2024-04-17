@@ -48,7 +48,15 @@ resource "helm_release" "aws_load_balancer_controller" {
   create_namespace = true
   set {
     name  = "clusterName"
-    value = data.aws_eks_cluster.default.name
+    value = local.cluster_name
+  }
+  set {
+    name  = "region"
+    value = local.region
+  }
+  set {
+    name  = "vpcId"
+    value = local.vpc_id
   }
   set {
     name  = "replicaCount"
@@ -76,10 +84,6 @@ resource "helm_release" "aws_load_balancer_controller" {
   }
   set {
     name  = "autoscaling.targetCPUUtilizationPercentage"
-    value = 70
-  }
-  set {
-    name  = "autoscaling.targetMemoryUtilizationPercentage"
     value = 70
   }
   set {

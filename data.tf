@@ -15,6 +15,7 @@ locals {
   cluster_name = tolist(data.aws_eks_clusters.default.names)[0]
   oidc         = substr(data.aws_eks_cluster.default.identity[0].oidc[0].issuer, 8, length(data.aws_eks_cluster.default.identity[0].oidc[0].issuer))
   account_id   = data.aws_caller_identity.current.account_id
+  vpc_id       = data.aws_eks_cluster.default.vpc_config[0].vpc_id
 }
 
 

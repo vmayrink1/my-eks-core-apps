@@ -19,7 +19,7 @@ resource "helm_release" "autoscaler" {
   }
   set {
     name  = "autoDiscovery.clusterName"
-    value = data.aws_eks_cluster.default.name
+    value = local.cluster_name
   }
   set {
     name  = "replicaCount"
