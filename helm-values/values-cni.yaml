@@ -1,0 +1,24 @@
+init:
+  image:
+    region: ${region}
+eniConfig:
+  create: true
+  region: ${region}
+  subnets:
+    a:
+      id: ${subnet_a}
+      securityGroups:
+            - ${sg_node}
+      
+    b:
+      id: ${subnet_b}
+      securityGroups:
+            - ${sg_node}
+      
+    c:
+      id: ${subnet_c}
+      securityGroups:
+            - ${sg_node}
+env:
+  AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG: "true"
+  ENABLE_PREFIX_DELEGATION: "false"

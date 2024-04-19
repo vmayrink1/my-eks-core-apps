@@ -1,10 +1,6 @@
-locals {
-  region = "us-east-1"
-}
-
 provider "aws" {
   region  = local.region
-  # profile = "anderson"
+  profile = "anderson"
 }
 
 provider "kubernetes" {
