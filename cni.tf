@@ -6,7 +6,7 @@ resource "helm_release" "cni_config" {
   namespace  = "kube-system"
   values = [
     templatefile("helm-values/values-cni.yaml", {
-      region = "${local.region}"
+      region   = "${local.region}"
       subnet_a = "${local.subnet_a}"
       subnet_b = "${local.subnet_b}"
       subnet_c = "${local.subnet_c}"

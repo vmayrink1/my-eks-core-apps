@@ -1,11 +1,3 @@
-
-# // Para o auto-scaler funcionar
-# # worker_iam_role_arn
-# data "aws_iam_role" "worker_iam_role_arn" {
-#   name = var.eks_worker_iam_role_name
-# }
-# Autoscaler tem diversas configurações. Movido de lugar para organizar melhor
-# helm template autoscaler --namespace kube-system --set autoDiscovery.clusterName=eks-cluster --set rbac.serviceAccount.annotations.eks\.amazonaws\.com/role-arn=arn:aws:iam::123456789012:role/eksctl-eks-cluster-nodegroup-ng-1-NodeInstanceRole-1VZJ3GZGZJW3 --set rbac.serviceAccount.create=true --set rbac.serviceAccount.name=cluster-autoscaler --set rbac.psp.create=true --set rbac.psp.name=cluster-autoscaler --set rbac.psp.useAppArmor=false --set rbac.psp.usePodSecurityPolicy=false --set rbac.rbac.create=true --set rbac.rbac.serviceAccountName=cluster-autoscaler --set rbac.rbac.serviceAccountNameOverride=cluster-autoscaler --set rbac.rbac.serviceAccountNameOverride=cluster-autoscaler --set rbac.rbac.useAppArmor=false --set rbac.rbac.usePodSecurityPolicy=false
 resource "helm_release" "autoscaler" {
   name       = "autoscaler"
   chart      = "cluster-autoscaler"
