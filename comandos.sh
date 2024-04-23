@@ -12,6 +12,6 @@ kubectl -n kube-system logs -f deployment.apps/aws-load-balancer-controller
 kubectl get pods -A | grep ingress-ingress-nginx-controller
 kubectl rollout restart deploy -n kube-system ingress-ingress-nginx-controller
 kubectl -n ingress-nginx logs -f deployment.apps/ingress-ingress-nginx-controller
-
-helm get values -n ingress ingress-nginx
 helm uninstall -n ingress-nginx ingress
+
+kubectl delete -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/v1.17.1/config/master/aws-k8s-cni.yaml
