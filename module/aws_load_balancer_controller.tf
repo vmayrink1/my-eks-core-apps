@@ -1,8 +1,9 @@
 resource "helm_release" "aws_load_balancer_controller" {
+  count      = var.alb_controller_enable ? 1 : 0
   name             = "aws-load-balancer-controller"
   chart            = "aws-load-balancer-controller"
   repository       = "https://aws.github.io/eks-charts"
-  version          = "1.7.2"
+  version          = var.alb_controller_version
   namespace        = "kube-system"
   create_namespace = true
   set {
@@ -43,7 +44,7 @@ resource "helm_release" "aws_load_balancer_controller" {
   }
   set {
     name  = "autoscaling.targetCPUUtilizationPercentage"
-    value = 70
+    value = 80
   }
   set {
     name  = "serviceAccount.create"
@@ -59,6 +60,7 @@ resource "helm_release" "aws_load_balancer_controller" {
 }
 
 resource "kubernetes_service_account_v1" "aws_load_balancer_sa" {
+  count      = var.alb_controller_enable ? 1 : 0
   metadata {
     name      = "aws-load-balancer-controller"
     namespace = "kube-system"
@@ -72,8 +74,8 @@ resource "kubernetes_service_account_v1" "aws_load_balancer_sa" {
   }
 }
 
-# ROLES e POLICY
 resource "aws_iam_role" "eks_load_balancer_role" {
+  count      = var.alb_controller_enable ? 1 : 0
   name = "AmazonEKSLoadBalancerControllerRole"
 
   assume_role_policy = jsonencode(
@@ -98,11 +100,13 @@ resource "aws_iam_role" "eks_load_balancer_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "attach_load_balancer_controller_role_policy" {
+  count      = var.alb_controller_enable ? 1 : 0
   role       = aws_iam_role.eks_load_balancer_role.name
   policy_arn = aws_iam_policy.eks_load_balancer_policy.arn
 }
 
 resource "aws_iam_policy" "eks_load_balancer_policy" {
+  count      = var.alb_controller_enable ? 1 : 0
   name        = "AWSLoadBalancerControllerIAMPolicy"
   description = "EKS to Load Balance Policy"
 

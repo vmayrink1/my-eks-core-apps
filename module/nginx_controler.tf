@@ -1,19 +1,17 @@
 
 resource "helm_release" "ingress_gateway" {
+  count      = var.nginx_controler_enable ? 1 : 0
   name             = "ingress"
   chart            = "ingress-nginx"
   repository       = "https://kubernetes.github.io/ingress-nginx"
-  version          = "4.10.0"
+  version          = var.nginx_controler_version
   namespace        = "ingress-nginx"
   create_namespace = true
-
-  # Problema com o SSL no nginx. https://medium.com/faun/nginx-ingress-controller-for-cross-namespace-support-and-fix-308-redirect-loops-with-aws-nlb-9c9ca58deeaa
-  # Para configurar direto pelo YAML existe um GIT em progresso: https://github.com/kubernetes/ingress-nginx/issues/6868
+  
   values = [
-    file("helm-values/values-nginx.yaml")
-    # templatefile("values.yaml", {
-    #    SSL_CERT = "${aws_acm_certificate.porto_cert.arn}"
-    # })
+    templatefile("./module/helm-values/values-nginx.yaml", {
+       SSL_CERT = "${var.certificate_arn}"
+    })
   ]
   depends_on = [
     helm_release.aws_load_balancer_controller
