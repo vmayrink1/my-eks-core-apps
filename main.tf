@@ -22,7 +22,7 @@ module "eks_core_apps" {
 #   metrics_server_enable  = true
 #   metrics_server_version = "3.12.1"
 
-#   # metrics_server
+#   # vpc_cni
 #   vpc_cni_enable  = true
 #   vpc_cni_version = "1.18.0"
 }
