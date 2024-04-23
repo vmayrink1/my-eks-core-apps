@@ -40,6 +40,7 @@ resource "helm_release" "autoscaler" {
 }
 
 resource "kubernetes_service_account_v1" "aws_cluster_autoscaler_sa" {
+  count = var.autoscaler_enable ? 1 : 0
   metadata {
     name      = "cluster-autoscaler"
     namespace = "kube-system"
@@ -48,15 +49,16 @@ resource "kubernetes_service_account_v1" "aws_cluster_autoscaler_sa" {
       "app.kubernetes.io/name"      = "cluster-autoscaler"
     }
     annotations = {
-      "eks.amazonaws.com/role-arn" = "arn:aws:iam::${local.account_id}:role/${aws_iam_role.eks_cluster_autoscaler_role.name}"
+      "eks.amazonaws.com/role-arn" = "arn:aws:iam::${local.account_id}:role/${aws_iam_role.eks_cluster_autoscaler_role[count.index].name}"
     }
   }
 }
 
 # ROLES e POLICY
 resource "aws_iam_role" "eks_cluster_autoscaler_role" {
-  name = "AmazonEKSClusterAutoscalerRole"
+  count = var.autoscaler_enable ? 1 : 0
 
+  name = "AmazonEKSClusterAutoscalerRole"
   assume_role_policy = jsonencode(
     {
       "Version" : "2012-10-17",
@@ -79,12 +81,14 @@ resource "aws_iam_role" "eks_cluster_autoscaler_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "attach_cluster_autoscaler_role_policy" {
-  role       = aws_iam_role.eks_cluster_autoscaler_role.name
-  policy_arn = aws_iam_policy.eks_cluster_autoscaler_policy.arn
+  count      = var.autoscaler_enable ? 1 : 0
+  role       = aws_iam_role.eks_cluster_autoscaler_role[count.index].name
+  policy_arn = aws_iam_policy.eks_cluster_autoscaler_policy[count.index].arn
 }
 
 
 resource "aws_iam_policy" "eks_cluster_autoscaler_policy" {
+  count       = var.autoscaler_enable ? 1 : 0
   name        = "AmazonEKSClusterAutoscalerPolicy"
   description = "Policy to work with autoscale"
 

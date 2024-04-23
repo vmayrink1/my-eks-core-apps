@@ -1,5 +1,5 @@
 resource "helm_release" "aws_load_balancer_controller" {
-  count      = var.alb_controller_enable ? 1 : 0
+  count            = var.alb_controller_enable ? 1 : 0
   name             = "aws-load-balancer-controller"
   chart            = "aws-load-balancer-controller"
   repository       = "https://aws.github.io/eks-charts"
@@ -60,7 +60,8 @@ resource "helm_release" "aws_load_balancer_controller" {
 }
 
 resource "kubernetes_service_account_v1" "aws_load_balancer_sa" {
-  count      = var.alb_controller_enable ? 1 : 0
+  count = var.alb_controller_enable ? 1 : 0
+
   metadata {
     name      = "aws-load-balancer-controller"
     namespace = "kube-system"
@@ -69,14 +70,14 @@ resource "kubernetes_service_account_v1" "aws_load_balancer_sa" {
       "app.kubernetes.io/name"      = "aws-load-balancer-controller"
     }
     annotations = {
-      "eks.amazonaws.com/role-arn" = "arn:aws:iam::${local.account_id}:role/${aws_iam_role.eks_load_balancer_role.name}"
+      "eks.amazonaws.com/role-arn" = "arn:aws:iam::${local.account_id}:role/${aws_iam_role.eks_load_balancer_role[count.index].name}"
     }
   }
 }
 
 resource "aws_iam_role" "eks_load_balancer_role" {
-  count      = var.alb_controller_enable ? 1 : 0
-  name = "AmazonEKSLoadBalancerControllerRole"
+  count = var.alb_controller_enable ? 1 : 0
+  name  = "AmazonEKSLoadBalancerControllerRole"
 
   assume_role_policy = jsonencode(
     {
@@ -101,12 +102,12 @@ resource "aws_iam_role" "eks_load_balancer_role" {
 
 resource "aws_iam_role_policy_attachment" "attach_load_balancer_controller_role_policy" {
   count      = var.alb_controller_enable ? 1 : 0
-  role       = aws_iam_role.eks_load_balancer_role.name
-  policy_arn = aws_iam_policy.eks_load_balancer_policy.arn
+  role       = aws_iam_role.eks_load_balancer_role[count.index].name
+  policy_arn = aws_iam_policy.eks_load_balancer_policy[count.index].arn
 }
 
 resource "aws_iam_policy" "eks_load_balancer_policy" {
-  count      = var.alb_controller_enable ? 1 : 0
+  count       = var.alb_controller_enable ? 1 : 0
   name        = "AWSLoadBalancerControllerIAMPolicy"
   description = "EKS to Load Balance Policy"
 
