@@ -52,7 +52,7 @@ resource "helm_release" "aws_load_balancer_controller" {
   }
   set {
     name  = "serviceAccount.name"
-    value = "aws-load-balancer-controller"
+    value = "aws-load-balancer-controller-terraform"
   }
   depends_on = [
     kubernetes_service_account_v1.aws_load_balancer_sa
@@ -63,11 +63,11 @@ resource "kubernetes_service_account_v1" "aws_load_balancer_sa" {
   count = var.alb_controller_enable ? 1 : 0
 
   metadata {
-    name      = "aws-load-balancer-controller"
+    name      = "aws-load-balancer-controller-terraform"
     namespace = "kube-system"
     labels = {
       "app.kubernetes.io/component" = "controller"
-      "app.kubernetes.io/name"      = "aws-load-balancer-controller"
+      "app.kubernetes.io/name"      = "aws-load-balancer-controller-terraform"
     }
     annotations = {
       "eks.amazonaws.com/role-arn" = "arn:aws:iam::${local.account_id}:role/${aws_iam_role.eks_load_balancer_role[count.index].name}"
@@ -77,7 +77,7 @@ resource "kubernetes_service_account_v1" "aws_load_balancer_sa" {
 
 resource "aws_iam_role" "eks_load_balancer_role" {
   count = var.alb_controller_enable ? 1 : 0
-  name  = "AmazonEKSLoadBalancerControllerRole"
+  name  = "AmazonEKSLoadBalancerControllerRole_terraform"
 
   assume_role_policy = jsonencode(
     {
@@ -108,7 +108,7 @@ resource "aws_iam_role_policy_attachment" "attach_load_balancer_controller_role_
 
 resource "aws_iam_policy" "eks_load_balancer_policy" {
   count       = var.alb_controller_enable ? 1 : 0
-  name        = "AWSLoadBalancerControllerIAMPolicy"
+  name        = "AWSLoadBalancerControllerIAMPolicy_terraform"
   description = "EKS to Load Balance Policy"
 
   policy = jsonencode({

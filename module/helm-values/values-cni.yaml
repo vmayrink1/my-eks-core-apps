@@ -19,6 +19,11 @@ eniConfig:
       id: ${subnet_3}
       securityGroups:
             - ${sg_node}
+            
 env:
   AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG: "true"
   ENI_CONFIG_LABEL_DEF: "topology.kubernetes.io/zone"
+
+serviceAccount:
+  create: false
+  name: aws-node-terraform

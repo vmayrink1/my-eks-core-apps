@@ -11,7 +11,7 @@ data "aws_eks_cluster_auth" "default" {
 
 data "aws_subnets" "subnets" {
   filter {
-    name = "tag:Name"
+    name   = "tag:Name"
     values = ["*${var.subnets_filter_name}*"]
   }
 }

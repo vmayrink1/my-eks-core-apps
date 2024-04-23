@@ -32,7 +32,7 @@ resource "helm_release" "autoscaler" {
   }
   set {
     name  = "rbac.serviceAccount.name"
-    value = "cluster-autoscaler"
+    value = "cluster-autoscaler-terraform"
   }
   depends_on = [
     kubernetes_service_account_v1.aws_cluster_autoscaler_sa
@@ -42,11 +42,11 @@ resource "helm_release" "autoscaler" {
 resource "kubernetes_service_account_v1" "aws_cluster_autoscaler_sa" {
   count = var.autoscaler_enable ? 1 : 0
   metadata {
-    name      = "cluster-autoscaler"
+    name      = "cluster-autoscaler-terraform"
     namespace = "kube-system"
     labels = {
       "app.kubernetes.io/component" = "controller"
-      "app.kubernetes.io/name"      = "cluster-autoscaler"
+      "app.kubernetes.io/name"      = "cluster-autoscaler-terraform"
     }
     annotations = {
       "eks.amazonaws.com/role-arn" = "arn:aws:iam::${local.account_id}:role/${aws_iam_role.eks_cluster_autoscaler_role[count.index].name}"
@@ -58,7 +58,7 @@ resource "kubernetes_service_account_v1" "aws_cluster_autoscaler_sa" {
 resource "aws_iam_role" "eks_cluster_autoscaler_role" {
   count = var.autoscaler_enable ? 1 : 0
 
-  name = "AmazonEKSClusterAutoscalerRole"
+  name = "AmazonEKSClusterAutoscalerRole_terraform"
   assume_role_policy = jsonencode(
     {
       "Version" : "2012-10-17",
@@ -89,7 +89,7 @@ resource "aws_iam_role_policy_attachment" "attach_cluster_autoscaler_role_policy
 
 resource "aws_iam_policy" "eks_cluster_autoscaler_policy" {
   count       = var.autoscaler_enable ? 1 : 0
-  name        = "AmazonEKSClusterAutoscalerPolicy"
+  name        = "AmazonEKSClusterAutoscalerPolicy_terraform"
   description = "Policy to work with autoscale"
 
   policy = <<EOF

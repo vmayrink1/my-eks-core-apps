@@ -13,7 +13,7 @@ variable "nginx_controler_enable" {
 }
 variable "certificate_arn" {
   type    = string
-  default = null
+  default = ""
 }
 variable "nginx_controler_version" {
   type    = string
@@ -64,6 +64,26 @@ variable "subnets_filter_name" {
   default = null
 }
 variable "sg_filter_name" {
+  type    = string
+  default = null
+}
+
+# kube_proxy
+variable "kube_proxy_enable" {
+  type    = bool
+  default = false
+}
+variable "kube_proxy_version" {
+  type    = string
+  default = null
+}
+
+# coredns
+variable "coredns_enable" {
+  type    = bool
+  default = false
+}
+variable "coredns_version" {
   type    = string
   default = null
 }

@@ -18,16 +18,5 @@ resource "helm_release" "ingress_gateway" {
   ]
 }
 
-# # Os certificados são fornecidos pelo time da porto
-# resource "aws_acm_certificate" "porto_cert" {
-#   private_key       = file("${path.module}/certificate-novo-ambiente/${lower(var.environment)}/novo-ambiente.${lower(var.environment)}.sinapse.porto.key")
-#   certificate_body  = file("${path.module}/certificate-novo-ambiente/${lower(var.environment)}/novo-ambiente.${lower(var.environment)}.sinapse.porto.crt")
-#   certificate_chain = file("${path.module}/certificate-novo-ambiente/${lower(var.environment)}/cacert.txt")
-#   tags = {
-#     environment  = var.environment
-#     cluster_name = var.cluster_name
-#   }
-# }
-
 
 
