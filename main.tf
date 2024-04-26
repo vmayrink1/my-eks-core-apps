@@ -1,12 +1,12 @@
 module "eks_core_apps" {
   source       = "./module"
-  region       = "ca-central-1"
-  cluster_name = "portofazneo-dev"
+  region       = "us-east-1"
+  cluster_name = "my-eks"
 
   # https://artifacthub.io/
 
   # nginx_controler
-  nginx_controler_enable  = false
+  nginx_controler_enable  = true
   certificate_arn         = ""
   nginx_controler_version = "4.10.0"
 
@@ -21,8 +21,8 @@ module "eks_core_apps" {
   # vpc_cni
   vpc_cni_enable      = true
   vpc_cni_version     = "1.18.0"
-  subnets_filter_name = "cni-pods" # subnets da rede CNI
-  sg_filter_name      = "eks_worker_sg" # sg do node
+  subnets_filter_name = "intra"      # subnets da rede CNI
+  sg_filter_name      = "node" # sg do node
 
   # aws_load_balancer_controller
   alb_controller_enable  = true
@@ -35,4 +35,16 @@ module "eks_core_apps" {
   # metrics_server
   metrics_server_enable  = true
   metrics_server_version = "3.12.1"
+
+  # kube_dashboard
+  kube_dashboard_enable        = true
+  kube_dashboard_version       = "7.2.3"
+  kube_dashboard_ingress_class = "nginx"
+  kube_dashboard_url           = null
+
+  # kubecost
+  kubecost_enable        = false
+  kubecost_version       = "2.2.2"
+  kubecost_ingress_class = "nginx"
+  kubecost_url           = null
 }

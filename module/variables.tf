@@ -87,3 +87,39 @@ variable "coredns_version" {
   type    = string
   default = null
 }
+
+# kube_dashboard
+variable "kube_dashboard_enable" {
+  type    = bool
+  default = false
+}
+variable "kube_dashboard_version" {
+  type    = string
+  default = null
+}
+variable "kube_dashboard_url" {
+  type    = string
+  default = null
+}
+variable "kube_dashboard_ingress_class" {
+  type    = string
+  default = null
+}
+
+# kubecost
+variable "kubecost_enable" {
+  type    = bool
+  default = false
+}
+variable "kubecost_version" {
+  type    = string
+  default = null
+}
+variable "kubecost_url" {
+  type    = string
+  default = null
+}
+variable "kubecost_ingress_class" {
+  type    = string
+  default = null
+}

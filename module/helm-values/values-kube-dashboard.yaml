@@ -1,24 +1,47 @@
 ingress:
   enabled: true
   hosts: 
-    - dashboard.novo-ambiente.prd.sinapse.porto
-  ingressClassName: nginx
-replicaCount: 8
-
-resources:
-  limits:
-    cpu: 2
-    memory: 700Mi
-  requests:
-    cpu: 200m
-    memory: 700Mi
-
-extraArgs: 
-  - --token-ttl=43200
-
+    - ${kube_dashboard_url}
+  ingressClassName: ${kube_dashboard_ingress_class}
+  
+auth:
+  scaling:
+    replicas: 1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 200Mi
+      limits:
+        cpu: 250m
+        memory: 400Mi
+api:
+  scaling:
+    replicas: 1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 200Mi
+      limits:
+        cpu: 250m
+        memory: 400Mi
+web:
+  scaling:
+    replicas: 1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 200Mi
+      limits:
+        cpu: 250m
+        memory: 400Mi
 metricsScraper:
   enabled: true
-#For Bash:
-  # kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
-# For Powershell:
-  # kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | sls admin-user | ForEach-Object { $_ -Split '\s+' } 
+  scaling:
+    replicas: 1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 200Mi
+      limits:
+        cpu: 250m
+        memory: 400Mi

@@ -15,3 +15,5 @@ kubectl -n ingress-nginx logs -f deployment.apps/ingress-ingress-nginx-controlle
 helm uninstall -n ingress-nginx ingress
 
 kubectl delete -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/v1.17.1/config/master/aws-k8s-cni.yaml
+
+kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
