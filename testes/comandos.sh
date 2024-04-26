@@ -12,7 +12,6 @@ kubectl -n kube-system logs -f deployment.apps/aws-load-balancer-controller
 kubectl get pods -A | grep ingress-ingress-nginx-controller
 kubectl rollout restart deploy -n kube-system ingress-ingress-nginx-controller
 kubectl -n ingress-nginx logs -f deployment.apps/ingress-ingress-nginx-controller
-helm uninstall -n ingress-nginx ingress
 
 CNI
 kubectl describe daemonset aws-node -n kube-system | grep Image
@@ -33,11 +32,12 @@ coredns
 kubectl describe deployment coredns --namespace kube-system | grep coredns: | cut -d : -f 3
 kubectl get pods -A | grep coredns
 
+kubernetes-dashboard
 kubectl get deploy -A | grep kubernetes-dashboard
 kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
 
 helm uninstall -n kubecost kubecost
+helm uninstall -n ingress-nginx ingress
 helm uninstall -n kubernetes-dashboard kubernetes-dashboard
-helm uninstall -n kube-system metrics-server
 
 kubectl get pods -A | grep -v Running | awk '{print $2, "-n", $1}' | xargs -n3 kubectl delete pod
