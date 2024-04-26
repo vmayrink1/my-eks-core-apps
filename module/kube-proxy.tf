@@ -6,7 +6,6 @@ resource "aws_eks_addon" "kube_proxy" {
   resolve_conflicts_on_update = "OVERWRITE"
   resolve_conflicts_on_create = "OVERWRITE"
   configuration_values = jsonencode({
-    replicaCount = 2
     resources = {
       limits = {
         memory : "170Mi"

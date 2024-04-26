@@ -99,7 +99,7 @@ variable "kube_dashboard_version" {
 }
 variable "kube_dashboard_url" {
   type    = string
-  default = null
+  default = ""
 }
 variable "kube_dashboard_ingress_class" {
   type    = string
@@ -117,7 +117,7 @@ variable "kubecost_version" {
 }
 variable "kubecost_url" {
   type    = string
-  default = null
+  default = ""
 }
 variable "kubecost_ingress_class" {
   type    = string

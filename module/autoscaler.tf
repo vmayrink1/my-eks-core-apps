@@ -72,7 +72,7 @@ resource "aws_iam_role" "eks_cluster_autoscaler_role" {
           "Condition" : {
             "StringEquals" : {
               "${local.oidc}:aud" : "sts.amazonaws.com",
-              "${local.oidc}:sub" : "system:serviceaccount:kube-system:cluster-autoscaler"
+              "${local.oidc}:sub" : "system:serviceaccount:kube-system:cluster-autoscaler-terraform"
             }
           }
         }

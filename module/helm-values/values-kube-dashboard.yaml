@@ -1,9 +1,10 @@
-ingress:
-  enabled: true
-  hosts: 
-    - ${kube_dashboard_url}
-  ingressClassName: ${kube_dashboard_ingress_class}
-  
+app:
+  ingress:
+    enabled: true
+    hosts: 
+      - ${kube_dashboard_url}
+    ingressClassName: ${kube_dashboard_ingress_class}
+    
 auth:
   scaling:
     replicas: 1
@@ -14,6 +15,7 @@ auth:
       limits:
         cpu: 250m
         memory: 400Mi
+
 api:
   scaling:
     replicas: 1
@@ -24,6 +26,7 @@ api:
       limits:
         cpu: 250m
         memory: 400Mi
+
 web:
   scaling:
     replicas: 1
@@ -34,6 +37,7 @@ web:
       limits:
         cpu: 250m
         memory: 400Mi
+
 metricsScraper:
   enabled: true
   scaling:

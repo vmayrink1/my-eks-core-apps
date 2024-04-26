@@ -4,7 +4,7 @@ resource "helm_release" "cni_config" {
   chart      = "aws-vpc-cni"
   repository = "https://aws.github.io/eks-charts"
   version    = var.vpc_cni_version
-  namespace  = "kube-system"
+  namespace  = "kube-system"  
   values = [
     templatefile("./module/helm-values/values-cni.yaml", {
       region   = "${local.region}"
@@ -51,7 +51,7 @@ resource "aws_iam_role" "vpc_cni_role" {
           "Condition" : {
             "StringEquals" : {
               "${local.oidc}:aud" : "sts.amazonaws.com",
-              "${local.oidc}:sub" : "system:serviceaccount:kube-system:aws-node"
+              "${local.oidc}:sub" : "system:serviceaccount:kube-system:aws-node-terraform"
             }
           }
         }

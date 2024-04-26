@@ -84,7 +84,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host:
+  - host: k8s-ingressn-ingressi-8b90e242f9-dc32f8a052ad39d3.elb.us-east-1.amazonaws.com
     http:
       paths:
       - backend:

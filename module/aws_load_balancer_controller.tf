@@ -92,7 +92,7 @@ resource "aws_iam_role" "eks_load_balancer_role" {
           "Condition" : {
             "StringEquals" : {
               "${local.oidc}:aud" : "sts.amazonaws.com",
-              "${local.oidc}:sub" : "system:serviceaccount:kube-system:aws-load-balancer-controller"
+              "${local.oidc}:sub" : "system:serviceaccount:kube-system:aws-load-balancer-controller-terraform"
             }
           }
         }

@@ -5,12 +5,12 @@ controller:
        http: http
     # https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.3/guide/service/annotations/#load-balancer-attributes
     annotations:
-      # service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "${SSL_CERT}"
-      # service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
-      # service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy: ELBSecurityPolicy-TLS13-1-2-2021-06
-      # service.beta.kubernetes.io/load-balancer-source-ranges: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+      service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "${SSL_CERT}"
+      service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+      service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy: ELBSecurityPolicy-TLS13-1-2-2021-06
+      service.beta.kubernetes.io/load-balancer-source-ranges: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
       service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "tcp"
-      service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing" # internet-facing or internal
+      service.beta.kubernetes.io/aws-load-balancer-scheme: "internal" # internet-facing or internal
       service.beta.kubernetes.io/aws-load-balancer-type: "nlb-ip"
       service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
   resources:
@@ -20,6 +20,6 @@ controller:
   autoscaling:
     enabled: true
     minReplicas: 2
-    maxReplicas: 10
+    maxReplicas: 50
     targetCPUUtilizationPercentage: 80
     targetMemoryUtilizationPercentage: 80

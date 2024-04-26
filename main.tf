@@ -12,7 +12,7 @@ module "eks_core_apps" {
 
   # kube_proxy
   kube_proxy_enable  = true
-  kube_proxy_version = "v1.29.1-minimal-eksbuild.2"
+  kube_proxy_version = "v1.29.3-eksbuild.2"
 
   # coredns
   coredns_enable  = true
@@ -38,13 +38,13 @@ module "eks_core_apps" {
 
   # kube_dashboard
   kube_dashboard_enable        = true
-  kube_dashboard_version       = "7.2.3"
-  kube_dashboard_ingress_class = "nginx"
-  kube_dashboard_url           = null
+  kube_dashboard_version       = "7.3.2"
+  kube_dashboard_ingress_class = "nginx" # alb or nginx
+  kube_dashboard_url           = ""
 
   # kubecost
-  kubecost_enable        = false
+  kubecost_enable        = true
   kubecost_version       = "2.2.2"
-  kubecost_ingress_class = "nginx"
-  kubecost_url           = null
+  kubecost_ingress_class = "nginx" # alb or nginx
+  kubecost_url           = ""
 }
