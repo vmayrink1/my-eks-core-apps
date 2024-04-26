@@ -22,6 +22,7 @@ kubectl describe daemonset aws-node -n kube-system | grep ENI_CONFIG_LABEL_DEF
 kubectl describe daemonset aws-node -n kube-system | grep ENABLE_PREFIX_DELEGATION
 kubectl get ENIConfigs
 kubectl -n kube-system logs -f daemonset.apps/aws-node
+kubectl get pods -A | grep aws-node
 kubectl get pods -A -o wide
 
 kube-proxy
