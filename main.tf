@@ -5,11 +5,11 @@ module "eks_core_apps" {
  
   # kube_proxy - https://docs.aws.amazon.com/pt_br/eks/latest/userguide/managing-kube-proxy.html
   kube_proxy_enable  = true
-  kube_proxy_version = "v1.29.3-eksbuild.2"
+  kube_proxy_version = "v1.29.3-eksbuild.2" # null = default version
 
   # coredns - https://docs.aws.amazon.com/pt_br/eks/latest/userguide/managing-coredns.html
   coredns_enable  = true
-  coredns_version = "v1.11.1-eksbuild.6"
+  coredns_version = "v1.11.1-eksbuild.6" # null = default version
 
   # vpc_cni - https://artifacthub.io/packages/helm/aws/aws-vpc-cni
   vpc_cni_enable      = true
