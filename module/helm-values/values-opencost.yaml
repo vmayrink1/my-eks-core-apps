@@ -1,0 +1,23 @@
+ui:
+    enabled: true
+    resources:
+      requests:
+        cpu: '10m'
+        memory: '55Mi'
+      limits:
+        cpu: '999m'
+        memory: '1Gi'
+    ingress:
+      enabled: true
+      ingressClassName: ${opencost_ingress_class}
+      hosts:
+        - host: ${opencost_url}
+opencost:
+    replicas: 1
+    resources:
+      requests:
+        cpu: '10m'
+        memory: '55Mi'
+      limits:
+        cpu: '999m'
+        memory: '1Gi'

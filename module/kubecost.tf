@@ -10,7 +10,7 @@ resource "helm_release" "kubecost" {
   create_namespace = true
   values = [
     templatefile("./module/helm-values/values-kubecost.yaml", {
-      kubecost_url = "${var.kubecost_url}"
+      kubecost_url           = "${var.kubecost_url}"
       kubecost_ingress_class = "${var.kubecost_ingress_class}"
     })
   ]

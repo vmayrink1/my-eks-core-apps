@@ -123,3 +123,21 @@ variable "kubecost_ingress_class" {
   type    = string
   default = null
 }
+
+# opencost
+variable "opencost_enable" {
+  type    = bool
+  default = false
+}
+variable "opencost_version" {
+  type    = string
+  default = null
+}
+variable "opencost_url" {
+  type    = string
+  default = ""
+}
+variable "opencost_ingress_class" {
+  type    = string
+  default = null
+}

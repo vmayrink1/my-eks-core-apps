@@ -1,10 +1,10 @@
-resource "helm_release" "cni_config" {
+resource "helm_release" "vpc_cni" {
   count      = var.vpc_cni_enable ? 1 : 0
   name       = "aws-vpc-cni"
   chart      = "aws-vpc-cni"
   repository = "https://aws.github.io/eks-charts"
   version    = var.vpc_cni_version
-  namespace  = "kube-system"  
+  namespace  = "kube-system"
   values = [
     templatefile("./module/helm-values/values-cni.yaml", {
       region   = "${local.region}"

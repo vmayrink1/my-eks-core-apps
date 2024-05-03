@@ -2,7 +2,7 @@ module "eks_core_apps" {
   source       = "./module"
   region       = "ca-central-1"
   cluster_name = "portofazneo-dev"
- 
+
   # kube_proxy - https://docs.aws.amazon.com/pt_br/eks/latest/userguide/managing-kube-proxy.html
   kube_proxy_enable  = true
   kube_proxy_version = "v1.29.3-eksbuild.2" # null = default version
@@ -45,4 +45,10 @@ module "eks_core_apps" {
   kubecost_version       = "2.2.2"
   kubecost_ingress_class = "nginx"
   kubecost_url           = ""
+
+  # opencost - https://artifacthub.io/packages/helm/opencost/opencost
+  opencost_enable        = false
+  opencost_version       = "1.35.0"
+  opencost_ingress_class = "nginx"
+  opencost_url           = ""
 }
