@@ -17,7 +17,8 @@ module "eks_core_apps" {
   subnets_filter_name = "cni-pods"      # subnets da rede CNI
   sg_filter_name      = "eks_worker_sg" # sg do node
 
-  # aws_load_balancer_controller - https://artifacthub.io/packages/helm/aws/aws-load-balancer-controller
+  # aws_load_balancer_controller - https://artifacthub.io/packages/helm/aws/aws-load-balancer-controller 
+  # kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller/crds?ref=master"
   alb_controller_enable  = true
   alb_controller_version = "1.7.1"
 
