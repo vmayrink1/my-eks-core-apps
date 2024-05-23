@@ -28,10 +28,12 @@ kubectl get pods -A -o wide
 
 # kube-proxy
 kubectl describe daemonset kube-proxy -n kube-system | grep Image
+kubectl -n kube-system logs -f daemonset/kube-proxy 
 kubectl get pods -A | grep kube-proxy
 
 # coredns
 kubectl describe deployment coredns --namespace kube-system | grep coredns: | cut -d : -f 3
+kubectl -n kube-system logs -f deployment/coredns 
 kubectl get pods -A | grep coredns
 
 # kubernetes-dashboard
