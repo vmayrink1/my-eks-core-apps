@@ -54,9 +54,7 @@ No modules.
 | [aws_eks_cluster.default](https://registry.terraform.io/providers/hashicorp/aws/5.46.0/docs/data-sources/eks_cluster) | data source |
 | [aws_eks_cluster_auth.default](https://registry.terraform.io/providers/hashicorp/aws/5.46.0/docs/data-sources/eks_cluster_auth) | data source |
 | [aws_security_group.sg_node](https://registry.terraform.io/providers/hashicorp/aws/5.46.0/docs/data-sources/security_group) | data source |
-| [aws_subnet.subnet_1](https://registry.terraform.io/providers/hashicorp/aws/5.46.0/docs/data-sources/subnet) | data source |
-| [aws_subnet.subnet_2](https://registry.terraform.io/providers/hashicorp/aws/5.46.0/docs/data-sources/subnet) | data source |
-| [aws_subnet.subnet_3](https://registry.terraform.io/providers/hashicorp/aws/5.46.0/docs/data-sources/subnet) | data source |
+| [aws_subnet.subnet_details](https://registry.terraform.io/providers/hashicorp/aws/5.46.0/docs/data-sources/subnet) | data source |
 | [aws_subnets.subnets](https://registry.terraform.io/providers/hashicorp/aws/5.46.0/docs/data-sources/subnets) | data source |
 
 ## Inputs

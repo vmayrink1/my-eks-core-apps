@@ -8,7 +8,7 @@ controller:
       service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "${SSL_CERT}"
       service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
       service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy: ELBSecurityPolicy-TLS13-1-2-2021-06
-      service.beta.kubernetes.io/load-balancer-source-ranges: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+      service.beta.kubernetes.io/load-balancer-source-ranges: "0.0.0.0/0"
       service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "ssl"
       service.beta.kubernetes.io/aws-load-balancer-scheme: "internal" # internet-facing or internal
       service.beta.kubernetes.io/aws-load-balancer-type: "nlb-ip"

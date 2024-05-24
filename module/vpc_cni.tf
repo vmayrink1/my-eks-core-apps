@@ -19,6 +19,41 @@ resource "helm_release" "vpc_cni" {
   ]
 }
 
+data "aws_security_group" "sg_node" {
+  count = var.vpc_cni_enable ? 1 : 0
+  filter {
+    name   = "tag:Name"
+    values = ["*${var.sg_filter_name}*"]
+  }
+}
+
+data "aws_subnets" "subnets" {
+  count = var.vpc_cni_enable ? 1 : 0
+  filter {
+    name   = "tag:Name"
+    values = ["*${var.subnets_filter_name}*"]
+  }
+}
+
+data "aws_subnet" "subnet_details" {
+  count = var.vpc_cni_enable ? length(data.aws_subnets.subnets[0].ids) : 0
+  id    = var.vpc_cni_enable ? element(data.aws_subnets.subnets[0].ids, count.index) : null
+}
+
+locals {
+  subnet_1 = var.vpc_cni_enable ? data.aws_subnet.subnet_details[0].id : null
+  subnet_2 = var.vpc_cni_enable ? data.aws_subnet.subnet_details[1].id : null
+  subnet_3 = var.vpc_cni_enable ? data.aws_subnet.subnet_details[2].id : null
+
+  az_1 = var.vpc_cni_enable ? data.aws_subnet.subnet_details[0].availability_zone : null
+  az_2 = var.vpc_cni_enable ? data.aws_subnet.subnet_details[1].availability_zone : null
+  az_3 = var.vpc_cni_enable ? data.aws_subnet.subnet_details[2].availability_zone : null
+
+  sg_node = var.vpc_cni_enable ? data.aws_security_group.sg_node[0].id : null
+}
+
+
+
 resource "kubernetes_service_account_v1" "vpc_cni_sa" {
   count = var.vpc_cni_enable ? 1 : 0
   metadata {

@@ -11,7 +11,7 @@ auth:
 
 api:
   scaling:
-    replicas: 1
+    replicas: 3
     resources:
       requests:
         cpu: 100m
