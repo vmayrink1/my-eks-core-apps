@@ -15,3 +15,18 @@ resource "helm_release" "kubecost" {
     })
   ]
 }
+
+resource "helm_release" "csi_driver" {
+  count            = var.kubecost_enable ? 1 : 0
+  name             = "aws-ebs-csi-driver"
+  repository       = "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
+  version          = var.csi_driver_version
+  chart            = "aws-ebs-csi-driver"
+  namespace        = "kube-system"
+  # values = [
+  #   templatefile("./module/helm-values/values-kubecost.yaml", {
+  #     kubecost_url           = "${var.kubecost_url}"
+  #     kubecost_ingress_class = "${var.kubecost_ingress_class}"
+  #   })
+  # ]
+}

@@ -115,6 +115,10 @@ variable "kubecost_version" {
   type    = string
   default = null
 }
+variable "csi_driver_version" {
+  type    = string
+  default = null
+}
 variable "kubecost_url" {
   type    = string
   default = ""
