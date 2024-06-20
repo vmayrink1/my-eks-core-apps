@@ -47,10 +47,4 @@ module "eks_core_apps" {
   csi_driver_version     = "1.31.0"
   kubecost_ingress_class = "nginx"
   kubecost_url           = ""
-
-  # opencost - https://artifacthub.io/packages/helm/opencost/opencost
-  opencost_enable        = false
-  opencost_version       = "1.35.0"
-  opencost_ingress_class = "nginx"
-  opencost_url           = ""
 }
