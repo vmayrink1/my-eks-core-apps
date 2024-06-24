@@ -10,7 +10,7 @@ kubecostToken: "aGVsbUBrdWJlY29zdC5jb20=xm343yadf98"
 persistentVolume:
   size: 32Gi
   dbSize: 32.0Gi
-  enabled: false
+  enabled: true
 
 prometheus:
   server:
@@ -20,7 +20,7 @@ prometheus:
         memory: 512Mi
     persistentVolume:
       size: 32Gi
-      enabled: false
+      enabled: true
       
   nodeExporter:
     enabled: true
@@ -46,3 +46,6 @@ kubecostModel:
       cpu: "200m"
       memory: "55Mi"
       
+global:
+  grafana:
+    enabled: true
