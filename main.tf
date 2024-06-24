@@ -44,7 +44,7 @@ module "eks_core_apps" {
   # kubecost - https://artifacthub.io/packages/helm/kubecost/cost-analyzer
   kubecost_enable        = false
   kubecost_version       = "2.2.2"
-  csi_driver_version     = "1.31.0"
+  csi_driver_version     = "2.31.0"
   kubecost_ingress_class = "nginx"
   kubecost_url           = ""
 }

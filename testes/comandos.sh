@@ -6,7 +6,7 @@ kubectl get pods -A | grep autoscaler
 kubectl rollout restart deploy -n kube-system autoscaler-aws-cluster-autoscaler
 kubectl -n kube-system logs -f deployment.apps/autoscaler-aws-cluster-autoscaler
 
-# aws-load-balancer-controlle
+# aws-load-balancer-controller
 kubectl get pods -A | grep aws-load-balancer-controller
 kubectl rollout restart deploy -n kube-system aws-load-balancer-controller
 kubectl -n kube-system logs -f deployment.apps/aws-load-balancer-controller
