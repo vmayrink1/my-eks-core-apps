@@ -22,11 +22,11 @@ module "eks_core_apps" {
   alb_controller_version = "1.7.1"
 
   # autoscaler - https://artifacthub.io/packages/helm/cluster-autoscaler/cluster-autoscaler
-  autoscaler_enable  = false
+  autoscaler_enable  = true
   autoscaler_version = "9.36.0"
 
   # metrics_server - https://artifacthub.io/packages/helm/metrics-server/metrics-server
-  metrics_server_enable  = false
+  metrics_server_enable  = true
   metrics_server_version = "3.12.1"
 
   # nginx_controler - https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx
