@@ -45,7 +45,3 @@ kubecostModel:
     requests:
       cpu: "200m"
       memory: "55Mi"
-      
-global:
-  grafana:
-    enabled: true
