@@ -18,7 +18,6 @@ module "eks_core_apps" {
   sg_filter_name      = "" # sg do node
 
   # aws_load_balancer_controller - https://artifacthub.io/packages/helm/aws/aws-load-balancer-controller 
-  # kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller/crds?ref=master"
   alb_controller_enable  = false
   alb_controller_version = "1.7.1"
 
